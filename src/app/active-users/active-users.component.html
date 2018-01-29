@@ -1,0 +1,5 @@
+
+<div class="h4" *ngFor="let user of users">
+  {{ user.name }} |
+  <button class="btn btn-link" type="button" (click)="inactivate(user)">Set to inactive</button>
+</div>
