@@ -8,7 +8,7 @@ import {UsersService} from './shared/users.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements DoCheck {
-  title = 'Angular 5 Services Practice.';
+  title = 'Angular 5 Services Practice';
 
   constructor(private userService: UsersService) {}
 
