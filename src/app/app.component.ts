@@ -15,6 +15,9 @@ export class AppComponent implements DoCheck {
   activeUsers: User[];
   inactiveUsers: User[];
 
+  activatedCnt = 0;
+  deactivatedCnt = 0;
+
   ngDoCheck(): void {
     let users: User[];
 
@@ -22,5 +25,8 @@ export class AppComponent implements DoCheck {
 
     this.activeUsers = users.filter(u => u.isActive === true);
     this.inactiveUsers = users.filter(u => u.isActive === false);
+
+    this.activatedCnt = this.userService.getActivatedCounter();
+    this.deactivatedCnt = this.userService.getDeactivatedCounter();
   }
 }

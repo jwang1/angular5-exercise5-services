@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { InactiveUsersComponent } from './inactive-users/inactive-users.component';
 import { ActiveUsersComponent } from './active-users/active-users.component';
 import { UsersService } from './shared/users.service';
+import {CounterService} from './shared/counter.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { UsersService } from './shared/users.service';
     BrowserModule
   ],
   providers: [
-    UsersService
+    UsersService,
+    CounterService
   ],
   bootstrap: [
     AppComponent

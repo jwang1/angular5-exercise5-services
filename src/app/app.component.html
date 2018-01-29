@@ -10,4 +10,8 @@
 <hr>
 <app-inactive-users [users]="inactiveUsers"></app-inactive-users>
 <hr>
+<div class="panel panel-primary" *ngIf="activatedCnt > 0 || deactivatedCnt > 0">
+  Moved from Inactive to Active: {{ activatedCnt }} times.
+  Moved from Active to Inactive: {{ deactivatedCnt }} times.
+</div>
 
