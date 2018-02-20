@@ -14,7 +14,7 @@ export class InactiveUsersComponent implements OnInit {
   constructor(private userSvc: UsersService) {}
 
   ngOnInit(): void {
-    this.userSvc.getUsers().subscribe(usrs => this.users = usrs.filter(u => u.isActive === false));
+    this.users = this.userSvc.inactiveUsers;
   }
 
   activate(user: User): void {

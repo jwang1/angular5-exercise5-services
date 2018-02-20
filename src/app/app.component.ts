@@ -1,32 +1,32 @@
-import {Component, DoCheck } from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {User} from './shared/user.model';
 import {UsersService} from './shared/users.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [UsersService]
 })
-export class AppComponent implements DoCheck {
+export class AppComponent implements OnInit, DoCheck {
   title = 'Angular 5 Services Practice';
 
   constructor(private userService: UsersService) {}
 
-  activeUsers: User[];
-  inactiveUsers: User[];
-
   activatedCnt = 0;
   deactivatedCnt = 0;
 
-  ngDoCheck(): void {
-    let users: User[];
+  activeUsers: User[];
+  inactiveUsers: User[];
 
-    this.userService.getUsers().subscribe( urs => users = urs );
-
-    this.activeUsers = users.filter(u => u.isActive === true);
-    this.inactiveUsers = users.filter(u => u.isActive === false);
-
-    this.activatedCnt = this.userService.getActivatedCounter();
-    this.deactivatedCnt = this.userService.getDeactivatedCounter();
+  ngOnInit(): void {
+    this.activeUsers = this.userService.activeUsers;
+    this.inactiveUsers = this.userService.inactiveUsers;
   }
+
+  ngDoCheck(): void {
+    this.activatedCnt = this.userService.activatedCnt;
+    this.deactivatedCnt = this.userService.deactivatedCnt;
+  }
+
 }

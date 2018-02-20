@@ -8,19 +8,31 @@ import {CounterService} from './counter.service';
 
 @Injectable( )
 export class UsersService {
-  users: User[];
+  activeUsers: User[];
+  inactiveUsers: User[];
+
+  activatedCnt = 0;
+  deactivatedCnt = 0;
 
   constructor(private counterService: CounterService) {
-    this.users = [
+    this.activeUsers = [
       new User('Max', true),
-      new User('Anna', true),
+      new User('Anna', true)
+    ];
+
+    this.inactiveUsers = [
       new User('Chris', false),
       new User('Manu', false)
+
     ];
   }
 
-  getUsers(): Observable<User[]> {
-    return of(this.users);
+  getActiveUsers(): Observable<User[]> {
+    return of(this.activeUsers);
+  }
+
+  getInactiveUsers(): Observable<User[]> {
+    return of(this.activeUsers);
   }
 
   getActivatedCounter() {
@@ -32,12 +44,22 @@ export class UsersService {
   }
 
   updateStatus(user: User, isToActivate: boolean) {
-    user.isActive = isToActivate;
 
     if (isToActivate) {
+      // Update the inactiveUsers and activeUsers accordingly.
+      this.inactiveUsers.splice(this.inactiveUsers.indexOf(user), 1);
+      this.activeUsers.push(user);
       this.counterService.activatedCounter++;
     } else {
+      this.activeUsers.splice(this.activeUsers.indexOf(user), 1);
+      this.inactiveUsers.push(user);
       this.counterService.deactivatedCounter++;
     }
+
+    // update status later, due to the indexOf may check the status.
+    user.isActive = isToActivate;
+
+    this.activatedCnt = this.counterService.activatedCounter;
+    this.deactivatedCnt = this.counterService.deactivatedCounter;
   }
 }
