@@ -1,4 +1,4 @@
-import { Component, DoCheck } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsersService } from './shared/users.service';
 
 /**
@@ -9,7 +9,7 @@ import { UsersService } from './shared/users.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements DoCheck {
+export class AppComponent implements OnInit {
   title = 'Angular 5 Services Practice';
 
   constructor(private userService: UsersService) {}
@@ -17,9 +17,9 @@ export class AppComponent implements DoCheck {
   activatedCnt = 0;
   deactivatedCnt = 0;
 
-  ngDoCheck(): void {
-    this.activatedCnt = this.userService.activatedCnt;
-    this.deactivatedCnt = this.userService.deactivatedCnt;
+  ngOnInit(): void {
+    this.userService.activatedCntChanged.subscribe(cnt => this.activatedCnt = cnt );
+    this.userService.deactivatedCntChanged.subscribe(cnt => this.deactivatedCnt = cnt);
   }
 
 }

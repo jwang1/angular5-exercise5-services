@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
@@ -11,8 +11,12 @@ export class UsersService {
   activeUsers: User[];
   inactiveUsers: User[];
 
-  activatedCnt = 0;
-  deactivatedCnt = 0;
+  @Output()
+  activatedCntChanged: EventEmitter<number> = new EventEmitter<number>();
+
+  @Output()
+  deactivatedCntChanged: EventEmitter<number> = new EventEmitter<number>();
+
 
   constructor(private counterService: CounterService) {
     this.activeUsers = [
@@ -59,7 +63,7 @@ export class UsersService {
     // update status later, due to the indexOf may check the status.
     user.isActive = isToActivate;
 
-    this.activatedCnt = this.counterService.activatedCounter;
-    this.deactivatedCnt = this.counterService.deactivatedCounter;
+    this.activatedCntChanged.emit(this.counterService.activatedCounter);
+    this.deactivatedCntChanged.emit(this.counterService.deactivatedCounter);
   }
 }
