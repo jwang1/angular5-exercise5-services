@@ -4,9 +4,9 @@
 </div>
 
 <hr>
-<app-active-users [users]="activeUsers"></app-active-users>
+<app-active-users></app-active-users>
 <hr>
-<app-inactive-users [users]="inactiveUsers"></app-inactive-users>
+<app-inactive-users></app-inactive-users>
 <hr>
 <div class="panel panel-primary" *ngIf="activatedCnt > 0 || deactivatedCnt > 0">
   Moved from Inactive to Active: {{ activatedCnt }} times.
